@@ -1,97 +1,105 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Windows.Forms;
 
-class TaskItem
+namespace TaskManager
 {
-    public string Description { get; }
-    public bool IsCompleted { get; set; }
-
-    public TaskItem(string desc)
+    public partial class Form1 : Form
     {
-        Description = desc;
-        IsCompleted = false;
-    }
-}
+        private List<TaskItem> tasks = new();
+        private ListBox listBox;
+        private TextBox textBox;
+        private Button addBtn, completeBtn, deleteBtn;
 
-class Program
-{
-    static List<TaskItem> tasks = new();
-
-    static void Main()
-    {
-        while (true)
+        public Form1()
         {
-            Console.Clear();
-            Console.WriteLine("=== Task Manager ===");
-            Console.WriteLine($"Tasks: {tasks.Count}");
-            Console.WriteLine("1. Add Task");
-            Console.WriteLine("2. View Tasks");
-            Console.WriteLine("3. Mark Complete");
-            Console.WriteLine("4. Delete Task");
-            Console.WriteLine("5. Exit");
-            Console.Write("Choose (1-5): ");
-            string? choice = Console.ReadLine();
+            InitializeComponent();
+        }
 
-            if (choice == "1") AddTask();
-            else if (choice == "2") ViewTasks();
-            else if (choice == "3") MarkComplete();
-            else if (choice == "4") DeleteTask();
-            else if (choice == "5") return;
-            else { Console.WriteLine("Invalid!"); Console.ReadKey(); }
+        private void InitializeComponent()
+        {
+            this.Text = "Task Manager";
+            this.Size = new System.Drawing.Size(400, 400);
+            this.StartPosition = FormStartPosition.CenterScreen;
+
+            listBox = new ListBox { Dock = DockStyle.Fill };
+            textBox = new TextBox { Dock = DockStyle.Top, Height = 30 };
+            addBtn = new Button { Text = "Add", Dock = DockStyle.Top, Height = 30 };
+            completeBtn = new Button { Text = "Mark Complete", Dock = DockStyle.Top, Height = 30 };
+            deleteBtn = new Button { Text = "Delete", Dock = DockStyle.Top, Height = 30 };
+
+            addBtn.Click += AddBtn_Click;
+            completeBtn.Click += CompleteBtn_Click;
+            deleteBtn.Click += DeleteBtn_Click;
+            listBox.DoubleClick += ListBox_DoubleClick;
+
+            this.Controls.Add(listBox);
+            this.Controls.Add(textBox);
+            this.Controls.Add(addBtn);
+            this.Controls.Add(completeBtn);
+            this.Controls.Add(deleteBtn);
+            RefreshList();
+        }
+
+        private void RefreshList()
+        {
+            listBox.Items.Clear();
+            foreach (var task in tasks)
+            {
+                string status = task.IsCompleted ? "[X] " : "[ ] ";
+                listBox.Items.Add(status + task.Description);
+            }
+        }
+
+        private void AddBtn_Click(object? sender, EventArgs e)
+        {
+            if (!string.IsNullOrWhiteSpace(textBox.Text))
+            {
+                tasks.Add(new TaskItem(textBox.Text));
+                textBox.Clear();
+                RefreshList();
+            }
+        }
+
+        private void CompleteBtn_Click(object? sender, EventArgs e)
+        {
+            if (listBox.SelectedIndex >= 0)
+            {
+                tasks[listBox.SelectedIndex].IsCompleted = true;
+                RefreshList();
+            }
+        }
+
+        private void DeleteBtn_Click(object? sender, EventArgs e)
+        {
+            if (listBox.SelectedIndex >= 0)
+            {
+                tasks.RemoveAt(listBox.SelectedIndex);
+                RefreshList();
+            }
+        }
+
+        private void ListBox_DoubleClick(object? sender, EventArgs e)
+        {
+            CompleteBtn_Click(sender, e);
         }
     }
 
-    static void AddTask()
+    class TaskItem
     {
-        Console.Write("Enter task: ");
-        string? desc = Console.ReadLine();
-        if (!string.IsNullOrWhiteSpace(desc))
-        {
-            tasks.Add(new TaskItem(desc));
-            Console.WriteLine("Task added!");
-        }
-        else Console.WriteLine("Empty ignored.");
-        Console.WriteLine("Press any key...");
-        Console.ReadKey();
+        public string Description { get; }
+        public bool IsCompleted { get; set; }
+        public TaskItem(string desc) { Description = desc; IsCompleted = false; }
     }
 
-    static void ViewTasks()
+    class Program
     {
-        if (tasks.Count == 0) { Console.WriteLine("No tasks."); Console.ReadKey(); return; }
-        for (int i = 0; i < tasks.Count; i++)
+        [STAThread]
+        static void Main()
         {
-            string status = tasks[i].IsCompleted ? "[X]" : "[ ]";
-            Console.WriteLine($"{i+1}. {status} {tasks[i].Description}");
+            Application.EnableVisualStyles();
+            Application.SetHighDpiMode(HighDpiMode.SystemAware);
+            Application.Run(new Form1());
         }
-        Console.WriteLine("Press any key...");
-        Console.ReadKey();
-    }
-
-    static void MarkComplete()
-    {
-        ViewTasks();
-        if (tasks.Count == 0) return;
-        Console.Write("Task number: ");
-        if (int.TryParse(Console.ReadLine(), out int num) && num > 0 && num <= tasks.Count)
-        {
-            tasks[num-1].IsCompleted = true;
-            Console.WriteLine("Marked complete!");
-        }
-        else Console.WriteLine("Invalid number.");
-        Console.ReadKey();
-    }
-
-    static void DeleteTask()
-    {
-        ViewTasks();
-        if (tasks.Count == 0) return;
-        Console.Write("Task number: ");
-        if (int.TryParse(Console.ReadLine(), out int num) && num > 0 && num <= tasks.Count)
-        {
-            tasks.RemoveAt(num-1);
-            Console.WriteLine("Deleted!");
-        }
-        else Console.WriteLine("Invalid number.");
-        Console.ReadKey();
     }
 }

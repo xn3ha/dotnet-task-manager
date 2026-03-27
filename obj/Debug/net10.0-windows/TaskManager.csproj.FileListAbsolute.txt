@@ -1,0 +1,15 @@
+C:\Users\Prime\OneDrive\Documents\TaskManager\bin\Debug\net10.0-windows\TaskManager.exe
+C:\Users\Prime\OneDrive\Documents\TaskManager\bin\Debug\net10.0-windows\TaskManager.deps.json
+C:\Users\Prime\OneDrive\Documents\TaskManager\bin\Debug\net10.0-windows\TaskManager.runtimeconfig.json
+C:\Users\Prime\OneDrive\Documents\TaskManager\bin\Debug\net10.0-windows\TaskManager.dll
+C:\Users\Prime\OneDrive\Documents\TaskManager\bin\Debug\net10.0-windows\TaskManager.pdb
+C:\Users\Prime\OneDrive\Documents\TaskManager\obj\Debug\net10.0-windows\TaskManager.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Prime\OneDrive\Documents\TaskManager\obj\Debug\net10.0-windows\TaskManager.AssemblyInfoInputs.cache
+C:\Users\Prime\OneDrive\Documents\TaskManager\obj\Debug\net10.0-windows\TaskManager.AssemblyInfo.cs
+C:\Users\Prime\OneDrive\Documents\TaskManager\obj\Debug\net10.0-windows\TaskManager.csproj.CoreCompileInputs.cache
+C:\Users\Prime\OneDrive\Documents\TaskManager\obj\Debug\net10.0-windows\TaskManager.sourcelink.json
+C:\Users\Prime\OneDrive\Documents\TaskManager\obj\Debug\net10.0-windows\TaskManager.dll
+C:\Users\Prime\OneDrive\Documents\TaskManager\obj\Debug\net10.0-windows\refint\TaskManager.dll
+C:\Users\Prime\OneDrive\Documents\TaskManager\obj\Debug\net10.0-windows\TaskManager.pdb
+C:\Users\Prime\OneDrive\Documents\TaskManager\obj\Debug\net10.0-windows\TaskManager.genruntimeconfig.cache
+C:\Users\Prime\OneDrive\Documents\TaskManager\obj\Debug\net10.0-windows\ref\TaskManager.dll
